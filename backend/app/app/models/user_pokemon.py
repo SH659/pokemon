@@ -11,10 +11,8 @@ if TYPE_CHECKING:
 
 
 class UserPokemon(Base):
+    __tablename__ = "user_pokemon"
+
     id = Column(Integer, primary_key=True, index=True)
-
-    owner_id = Column(Integer, ForeignKey("user.id"))
-    owner = relationship("User", back_populates="user_pokemons")
-
-    pokemon_id = Column(Integer, ForeignKey("pokemon.id"))
-    pokemon = relationship("Pokemon", back_populates="pokemons")
+    user_id = Column(Integer, ForeignKey("user.id"), primary_key=True)
+    pokemon_id = Column(Integer, ForeignKey("pokemon.id"), primary_key=True)

@@ -18,11 +18,11 @@ def read_pokemons(
     """
     Retrieve pokemons.
     """
-    users = crud.pokemon.get_multi(db, skip=skip, limit=limit)
-    return users
+    pokemons = crud.pokemon.get_multi(db, skip=skip, limit=limit)
+    return pokemons
 
 
-@router.get("/{pokemon_id}", response_model=List[schemas.Pokemon])
+@router.get("/{pokemon_id}", response_model=schemas.Pokemon)
 def read_pokemon_by_id(
     pokemon_id: int,
     db: Session = Depends(deps.get_db)

@@ -18,4 +18,4 @@ class User(Base):
     is_active = Column(Boolean(), default=True)
     is_superuser = Column(Boolean(), default=False)
     items = relationship("Item", back_populates="owner")
-    user_pokemons = relationship("UserPokemon", back_populates="owner")
+    pokemons = relationship("Pokemon", secondary="user_pokemon", back_populates="users")

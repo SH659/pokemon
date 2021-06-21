@@ -20,7 +20,7 @@ class PokemonUpdate(PokemonBase):
 class PokemonInDBBase(PokemonBase):
     id: int
     name: str
-    owner_id: int
+    picture_url: str
 
     class Config:
         orm_mode = True

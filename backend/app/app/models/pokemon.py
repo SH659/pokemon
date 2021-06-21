@@ -13,4 +13,4 @@ class Pokemon(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     picture_url = Column(String, index=False)
-    user_pokemons = relationship("UserPokemon", back_populates="pokemon")
+    users = relationship("User", secondary="user_pokemon", back_populates="pokemons")
