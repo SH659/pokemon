@@ -14,6 +14,12 @@ export interface IUserProfileUpdate {
     is_superuser?: boolean;
 }
 
+export interface IUserOpenProfileCreate {
+    email: string;
+    full_name: string;
+    password: string;
+}
+
 export interface IUserProfileCreate {
     email: string;
     full_name?: string;

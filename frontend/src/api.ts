@@ -33,6 +33,9 @@ export const api = {
   async createUser(token: string, data: IUserProfileCreate) {
     return axios.post(`${apiUrl}/api/v1/users/`, data, authHeaders(token));
   },
+  async createUserOpen(token: string, data: IUserProfileCreate) {
+    return axios.post(`${apiUrl}/api/v1/users/open`, data, authHeaders(token));
+  },
   async passwordRecovery(email: string) {
     return axios.post(`${apiUrl}/api/v1/password-recovery/${email}`);
   },

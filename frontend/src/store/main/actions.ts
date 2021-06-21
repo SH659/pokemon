@@ -14,6 +14,7 @@ import {
     commitSetUserProfile,
 } from './mutations';
 import { AppNotification, MainState } from './state';
+import {IUserOpenProfileCreate} from "@/interfaces";
 
 type MainContext = ActionContext<MainState, State>;
 
@@ -36,6 +37,22 @@ export const actions = {
         } catch (err) {
             commitSetLogInError(context, true);
             await dispatchLogOut(context);
+        }
+    },
+    async actionRegisterUser(context: MainContext, payload: IUserOpenProfileCreate) {
+        try {
+            const loadingNotification = { content: 'saving', showProgress: true };
+            commitAddNotification(context, loadingNotification);
+            const response = (await Promise.all([
+                api.createUserOpen(context.state.token, payload),
+                await new Promise((resolve, reject) => setTimeout(() => resolve(), 500)),
+            ]))[0];
+            await actions.actionLogIn(context, {username: payload.email, password: payload.password});
+            // commitCreateUser(context, response.data);
+            commitRemoveNotification(context, loadingNotification);
+            commitAddNotification(context, { content: 'User successfully created', color: 'success' });
+        } catch (error) {
+            await dispatchCheckApiError(context, error);
         }
     },
     async actionGetUserProfile(context: MainContext) {
@@ -171,3 +188,5 @@ export const dispatchUpdateUserProfile = dispatch(actions.actionUpdateUserProfil
 export const dispatchRemoveNotification = dispatch(actions.removeNotification);
 export const dispatchPasswordRecovery = dispatch(actions.passwordRecovery);
 export const dispatchResetPassword = dispatch(actions.resetPassword);
+
+export const dispatchRegister = dispatch(actions.actionRegisterUser);
