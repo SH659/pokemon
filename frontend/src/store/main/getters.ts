@@ -1,6 +1,7 @@
 import { MainState } from './state';
 import { getStoreAccessors } from 'typesafe-vuex';
 import { State } from '../state';
+import Main from "@/views/main/Main.vue";
 
 export const getters = {
     hasAdminAccess: (state: MainState) => {
@@ -15,6 +16,7 @@ export const getters = {
     token: (state: MainState) => state.token,
     isLoggedIn: (state: MainState) => state.isLoggedIn,
     firstNotification: (state: MainState) => state.notifications.length > 0 && state.notifications[0],
+    pokemons: (state: MainState) => state.pokemons,
 };
 
 const {read} = getStoreAccessors<MainState, State>('');
@@ -27,3 +29,4 @@ export const readLoginError = read(getters.loginError);
 export const readToken = read(getters.token);
 export const readUserProfile = read(getters.userProfile);
 export const readFirstNotification = read(getters.firstNotification);
+export const readPokemons = read(getters.pokemons);

@@ -63,6 +63,23 @@ export default new Router({
               ],
             },
             {
+              path: 'pokemon',
+              component: RouterComponent,
+              redirect: 'profile/view',
+              children: [
+                {
+                  path: 'view',
+                  component: () => import(
+                    /* webpackChunkName: "main-pokemon" */ './views/main/pokemon/UserPokemon.vue'),
+                },
+                {
+                  path: 'edit',
+                  component: () => import(
+                    /* webpackChunkName: "main-pokemon-edit" */ './views/main/pokemon/UserPokemonEdit.vue'),
+                },
+              ],
+            },
+            {
               path: 'admin',
               component: () => import(/* webpackChunkName: "main-admin" */ './views/main/admin/Admin.vue'),
               redirect: 'admin/users/all',

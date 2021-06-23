@@ -1,7 +1,8 @@
-import { IUserProfile } from '@/interfaces';
+import {IPokemon, IUserProfile} from '@/interfaces';
 import { MainState, AppNotification } from './state';
 import { getStoreAccessors } from 'typesafe-vuex';
 import { State } from '../state';
+import Main from "@/views/main/Main.vue";
 
 
 export const mutations = {
@@ -29,6 +30,15 @@ export const mutations = {
     removeNotification(state: MainState, payload: AppNotification) {
         state.notifications = state.notifications.filter((notification) => notification !== payload);
     },
+    addPokemon(state: MainState, payload: IPokemon){
+        state.pokemons.push(payload)
+    },
+    setPokemons(state: MainState, payload: IPokemon[]) {
+        state.pokemons = Array.from(payload);
+    },
+    removePokemon(state: MainState, payload: IPokemon){
+        state.pokemons = state.pokemons.filter((pokemon) => pokemon !== payload);
+    }
 };
 
 const {commit} = getStoreAccessors<MainState | any, State>('');
@@ -41,3 +51,7 @@ export const commitSetToken = commit(mutations.setToken);
 export const commitSetUserProfile = commit(mutations.setUserProfile);
 export const commitAddNotification = commit(mutations.addNotification);
 export const commitRemoveNotification = commit(mutations.removeNotification);
+
+export const commitAddPokemon = commit(mutations.addPokemon);
+export const commitSetPokemons = commit(mutations.setPokemons);
+export const commitRemovePokemon = commit(mutations.removePokemon);

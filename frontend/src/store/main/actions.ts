@@ -9,12 +9,13 @@ import {
     commitAddNotification,
     commitRemoveNotification,
     commitSetLoggedIn,
-    commitSetLogInError,
+    commitSetLogInError, commitSetPokemons,
     commitSetToken,
     commitSetUserProfile,
 } from './mutations';
 import { AppNotification, MainState } from './state';
 import {IUserOpenProfileCreate} from "@/interfaces";
+import Main from "@/views/main/Main.vue";
 
 type MainContext = ActionContext<MainState, State>;
 
@@ -171,6 +172,12 @@ export const actions = {
             commitAddNotification(context, { color: 'error', content: 'Error resetting password' });
         }
     },
+    async actionGetPokemons(context: MainContext, payload: {skip: number, limit: number}){
+        const response = await api.getPokemons(payload.skip, payload.limit);
+        console.log('###############################################################')
+        console.log(response)
+        commitSetPokemons(context, Array.from(JSON.parse(JSON.stringify(response.data))))
+    }
 };
 
 const { dispatch } = getStoreAccessors<MainState | any, State>('');
@@ -190,3 +197,4 @@ export const dispatchPasswordRecovery = dispatch(actions.passwordRecovery);
 export const dispatchResetPassword = dispatch(actions.resetPassword);
 
 export const dispatchRegister = dispatch(actions.actionRegisterUser);
+export const dispatchGetPokemons = dispatch(actions.actionGetPokemons);

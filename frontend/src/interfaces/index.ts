@@ -27,3 +27,8 @@ export interface IUserProfileCreate {
     is_active?: boolean;
     is_superuser?: boolean;
 }
+
+export interface IPokemon {
+    name: string
+    picture_url: string
+}
