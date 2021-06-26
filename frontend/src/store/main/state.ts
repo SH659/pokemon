@@ -1,4 +1,4 @@
-import {IPokemon, IUserProfile} from '@/interfaces';
+import {IPokemon, IUserPokemon, IUserProfile} from '@/interfaces';
 
 export interface AppNotification {
     content: string;
@@ -15,4 +15,5 @@ export interface MainState {
     dashboardShowDrawer: boolean;
     notifications: AppNotification[];
     pokemons: IPokemon[];
+    userPokemons: IUserPokemon[];
 }

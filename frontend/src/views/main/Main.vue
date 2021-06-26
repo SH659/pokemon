@@ -12,12 +12,20 @@
               <v-list-tile-title>Dashboard</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile to="/main/pokemon/view">
+          <v-list-tile to="/main/pokemon/select">
             <v-list-tile-action>
               <v-icon>person</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>Pokemon</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile to="/main/pokemon/selected">
+            <v-list-tile-action>
+              <v-icon>person</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Selected Pokemons</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
           <v-list-tile to="/main/profile/view">

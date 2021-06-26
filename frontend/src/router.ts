@@ -68,14 +68,14 @@ export default new Router({
               redirect: 'profile/view',
               children: [
                 {
-                  path: 'view',
+                  path: 'select',
                   component: () => import(
-                    /* webpackChunkName: "main-pokemon" */ './views/main/pokemon/UserPokemon.vue'),
+                    /* webpackChunkName: "main-pokemon-all" */ './views/main/pokemon/UserPokemonAll.vue'),
                 },
                 {
-                  path: 'edit',
+                  path: 'selected',
                   component: () => import(
-                    /* webpackChunkName: "main-pokemon-edit" */ './views/main/pokemon/UserPokemonEdit.vue'),
+                    /* webpackChunkName: "main-pokemon-selected" */ './views/main/pokemon/UserPokemonSelected.vue'),
                 },
               ],
             },

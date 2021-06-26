@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { apiUrl } from '@/env';
-import {IUserProfile, IUserProfileUpdate, IUserProfileCreate, IPokemon} from './interfaces';
+import {IUserProfile, IUserProfileUpdate, IUserProfileCreate, IPokemon, IUserPokemon} from './interfaces';
 
 function authHeaders(token: string) {
   return {
@@ -47,6 +47,9 @@ export const api = {
   },
   async getPokemons(skip: number, limit: number) {
     return axios.get<Iterable<IPokemon>>(`${apiUrl}/api/v1/pokemons/?skip=${skip}&limit=${limit}`);
+  },
+  async getUserPokemons(userId: number) {
+    return axios.get<Iterable<IUserPokemon>>(`${apiUrl}/api/v1/user_pokemons/user/${userId}`);
   },
   async getPokemonById(id: number) {
     return axios.get<IPokemon>(`${apiUrl}/api/v1/pokemons/${id}`);

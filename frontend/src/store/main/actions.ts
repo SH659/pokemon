@@ -10,7 +10,7 @@ import {
     commitRemoveNotification,
     commitSetLoggedIn,
     commitSetLogInError, commitSetPokemons,
-    commitSetToken,
+    commitSetToken, commitSetUserPokemons,
     commitSetUserProfile,
 } from './mutations';
 import { AppNotification, MainState } from './state';
@@ -175,6 +175,10 @@ export const actions = {
     async actionGetPokemons(context: MainContext, payload: {skip: number, limit: number}){
         const response = await api.getPokemons(payload.skip, payload.limit);
         commitSetPokemons(context, Array.from(response.data));
+    },
+    async actionGetUserPokemons(context: MainContext, userId: number){
+        const response = await api.getUserPokemons(userId);
+        commitSetUserPokemons(context, Array.from(response.data));
     }
 };
 
@@ -196,3 +200,4 @@ export const dispatchResetPassword = dispatch(actions.resetPassword);
 
 export const dispatchRegister = dispatch(actions.actionRegisterUser);
 export const dispatchGetPokemons = dispatch(actions.actionGetPokemons);
+export const dispatchGetUserPokemons = dispatch(actions.actionGetUserPokemons);

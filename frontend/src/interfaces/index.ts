@@ -32,3 +32,9 @@ export interface IPokemon {
     name: string
     picture_url: string
 }
+
+export interface IUserPokemon {
+    id: string
+    user: number
+    pokemon: number
+}

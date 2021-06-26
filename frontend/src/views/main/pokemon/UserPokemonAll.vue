@@ -26,15 +26,11 @@ import {dispatchGetPokemons} from "@/store/main/actions";
 @Component
 export default class UserPokemon extends Vue {
   public async mounted() {
-    console.log('dispatchGetPokemons');
     return await dispatchGetPokemons(this.$store, {skip: 0, limit: 100});
   }
 
   get pokemons() {
-    let res = readPokemons(this.$store);
-    console.log('pokemons()');
-    console.log(res);
-    return res;
+    return  readPokemons(this.$store);
   }
 }
 

@@ -12,6 +12,7 @@ const defaultState: MainState = {
   dashboardShowDrawer: true,
   notifications: [],
   pokemons: [],
+  userPokemons: []
 };
 
 export const mainModule = {

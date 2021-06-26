@@ -17,6 +17,7 @@ export const getters = {
     isLoggedIn: (state: MainState) => state.isLoggedIn,
     firstNotification: (state: MainState) => state.notifications.length > 0 && state.notifications[0],
     pokemons: (state: MainState) => state.pokemons,
+    userPokemons: (state: MainState) => state.userPokemons,
 };
 
 const {read} = getStoreAccessors<MainState, State>('');
@@ -30,3 +31,4 @@ export const readToken = read(getters.token);
 export const readUserProfile = read(getters.userProfile);
 export const readFirstNotification = read(getters.firstNotification);
 export const readPokemons = read(getters.pokemons);
+export const readUserPokemons = read(getters.userPokemons);
