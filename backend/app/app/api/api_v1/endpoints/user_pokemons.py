@@ -23,6 +23,18 @@ def read_user_pokemons(
     return pokemons
 
 
+@router.get("/{user_pokemon}", response_model=List[schemas.UserPokemon])
+def read_user_pokemon(
+    user_pokemon_id: str,
+    db: Session = Depends(deps.get_db),
+) -> Any:
+    """
+    Retrieve pokemons.
+    """
+    pokemons = crud.user_pokemon.get(db, user_pokemon_id)
+    return pokemons
+
+
 @router.post("/", response_model=schemas.UserPokemon)
 def create_user_pokemon(
     *,
