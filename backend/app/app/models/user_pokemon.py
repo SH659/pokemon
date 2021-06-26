@@ -14,5 +14,5 @@ class UserPokemon(Base):
     __tablename__ = "user_pokemon"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("user.id"), primary_key=True)
-    pokemon_id = Column(Integer, ForeignKey("pokemon.id"), primary_key=True)
+    user = Column(Integer, ForeignKey("user.id"), primary_key=True)
+    pokemon = Column(Integer, ForeignKey("pokemon.id"), primary_key=True)
