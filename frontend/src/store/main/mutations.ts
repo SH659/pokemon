@@ -47,6 +47,9 @@ export const mutations = {
     },
     removeUserPokemon(state: MainState, payload: IUserPokemon){
         state.userPokemons = state.userPokemons.filter((pokemon) => pokemon !== payload);
+    },
+    removeUserPokemonById(state: MainState, payload: {userPokemonId: string}){
+        state.userPokemons = state.userPokemons.filter((pokemon) => pokemon.id !== payload.userPokemonId);
     }
 };
 
@@ -68,3 +71,4 @@ export const commitRemovePokemon = commit(mutations.removePokemon);
 export const commitAddUserPokemon = commit(mutations.addUserPokemon);
 export const commitSetUserPokemons = commit(mutations.setUserPokemons);
 export const commitRemoveUserPokemon = commit(mutations.removeUserPokemon);
+export const commitRemoveUserPokemonById = commit(mutations.removeUserPokemonById);

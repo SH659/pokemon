@@ -48,10 +48,20 @@ export const api = {
   async getPokemons(skip: number, limit: number) {
     return axios.get<Iterable<IPokemon>>(`${apiUrl}/api/v1/pokemons/?skip=${skip}&limit=${limit}`);
   },
+  async getPokemonById(id: number) {
+    return axios.get<IPokemon>(`${apiUrl}/api/v1/pokemons/${id}`);
+  },
   async getUserPokemons(userId: number) {
     return axios.get<Iterable<IUserPokemon>>(`${apiUrl}/api/v1/user_pokemons/user/${userId}`);
   },
-  async getPokemonById(id: number) {
-    return axios.get<IPokemon>(`${apiUrl}/api/v1/pokemons/${id}`);
+  async getUserPokemon(userPokemonId: string) {
+    return axios.get<IUserPokemon>(`${apiUrl}/api/v1/user_pokemons/${userPokemonId}`);
+  },
+  async createUserPokemon(token: string, payload: {user: number, pokemon: number}) {
+    return axios.post<IUserPokemon>(`${apiUrl}/api/v1/user_pokemons/`, payload, authHeaders(token));
+  },
+  async deleteUserPokemon(token: string, id: string)
+  {
+    return axios.delete(`${apiUrl}/api/v1/user_pokemons/${id}`, authHeaders(token))
   }
 };

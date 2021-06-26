@@ -6,8 +6,8 @@ import { getStoreAccessors } from 'typesafe-vuex';
 import { ActionContext } from 'vuex';
 import { State } from '../state';
 import {
-    commitAddNotification,
-    commitRemoveNotification,
+    commitAddNotification, commitAddUserPokemon,
+    commitRemoveNotification, commitRemoveUserPokemon, commitRemoveUserPokemonById,
     commitSetLoggedIn,
     commitSetLogInError, commitSetPokemons,
     commitSetToken, commitSetUserPokemons,
@@ -16,6 +16,7 @@ import {
 import { AppNotification, MainState } from './state';
 import {IUserOpenProfileCreate} from "@/interfaces";
 import Main from "@/views/main/Main.vue";
+import useFakeTimers = jest.useFakeTimers;
 
 type MainContext = ActionContext<MainState, State>;
 
@@ -179,6 +180,16 @@ export const actions = {
     async actionGetUserPokemons(context: MainContext, userId: number){
         const response = await api.getUserPokemons(userId);
         commitSetUserPokemons(context, Array.from(response.data));
+    },
+    async actionCreateUserPokemon(context: MainContext, payload: {user: number, pokemon: number})
+    {
+        const response = await api.createUserPokemon(context.state.token, payload);
+        commitAddUserPokemon(context, response.data)
+    },
+    async actionDeleteUserPokemon(context: MainContext, payload: {userPokemonId: string})
+    {
+        await api.deleteUserPokemon(context.state.token, payload.userPokemonId);
+        commitRemoveUserPokemonById(context, payload);
     }
 };
 
@@ -201,3 +212,5 @@ export const dispatchResetPassword = dispatch(actions.resetPassword);
 export const dispatchRegister = dispatch(actions.actionRegisterUser);
 export const dispatchGetPokemons = dispatch(actions.actionGetPokemons);
 export const dispatchGetUserPokemons = dispatch(actions.actionGetUserPokemons);
+export const dispatchCreateUserPokemon = dispatch(actions.actionCreateUserPokemon);
+export const dispatchDeleteUserPokemon = dispatch(actions.actionDeleteUserPokemon);

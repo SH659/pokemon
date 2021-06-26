@@ -5,13 +5,15 @@
         <div class="headline primary--text">Selected Pokemons</div>
       </v-card-title>
 
-      <v-data-table :items="selectedPokemons">
+      <v-data-table :items="pokemons">
         <template slot="items" slot-scope="props">
-          <td><img v-bind:src="props.item.picture_url"
+          <td><img v-bind:src="props.item.pokemon.picture_url"
                    @error="$event.target.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdB3JUjeFV1bzYfvTsHoR5UFldN0TX1P-_1S_fpMsjjdAaI_mX_3HYcUeIne8-9tp1vwc&usqp=CAU'"/>
           </td>
-          <td><a v-bind:href="props.item.picture_url">{{ props.item.name }}</a></td>
-          <td></td>
+          <td><a v-bind:href="props.item.picture_url">{{ props.item.pokemon.name }}</a></td>
+          <td>
+            <v-btn v-on:click="RemovePokemonFromSelectedList(props.item)">Remove</v-btn>
+          </td>
         </template>
       </v-data-table>
 
@@ -22,30 +24,31 @@
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
-import {dispatchGetUserPokemons} from "@/store/main/actions";
-import {IPokemon, IUserPokemon} from "@/interfaces";
+import {dispatchDeleteUserPokemon, dispatchGetUserPokemons} from "@/store/main/actions";
+import {IPokemon, IUserFullPokemon, IUserPokemon} from "@/interfaces";
 import {api} from "@/api";
 import {readToken, readUserPokemons} from "@/store/main/getters";
 
 @Component
 export default class UserPokemon extends Vue {
-  selectedPokemons: IPokemon[] = []
-  userPokemons: IUserPokemon[] = []
+  pokemons: IUserFullPokemon[] = []
 
   public async mounted() {
     const me = (await api.getMe(readToken(this.$store))).data;
-    console.log(me);
     await dispatchGetUserPokemons(this.$store, me.id);
-    this.userPokemons = readUserPokemons(this.$store);
-    console.log(this.userPokemons);
+    const userPokemons = readUserPokemons(this.$store);
 
-    for (let i = 0; i < this.userPokemons.length; i++) {
-      let userPokemon = this.userPokemons[i];
-      console.log(userPokemon);
-      let pokemon = (await api.getPokemonById(userPokemon.pokemon)).data;
-      console.log(pokemon);
-      this.selectedPokemons.push(pokemon);
+    for (let i = 0; i < userPokemons.length; i++) {
+      let userPokemon = userPokemons[i];
+      let pokemon: IPokemon = (await api.getPokemonById(userPokemon.pokemon)).data;
+      let fullUserPokemon: IUserFullPokemon = {id: userPokemon.id, user: userPokemon.user, pokemon: pokemon};
+      this.pokemons.push(fullUserPokemon);
     }
+  }
+
+  public async RemovePokemonFromSelectedList(pokemonPair: IUserFullPokemon) {
+    await dispatchDeleteUserPokemon(this.$store, {userPokemonId: pokemonPair.id})
+    this.pokemons = this.pokemons.filter((pp) => pp !== pokemonPair)
   }
 }
 

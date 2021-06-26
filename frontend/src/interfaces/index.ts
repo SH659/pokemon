@@ -29,6 +29,7 @@ export interface IUserProfileCreate {
 }
 
 export interface IPokemon {
+    id: number
     name: string
     picture_url: string
 }
@@ -38,3 +39,11 @@ export interface IUserPokemon {
     user: number
     pokemon: number
 }
+
+
+export interface IUserFullPokemon {
+    id: string
+    user: number
+    pokemon: IPokemon
+}
+
