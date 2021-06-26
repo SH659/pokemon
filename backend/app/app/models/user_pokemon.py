@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey, String
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
@@ -13,6 +13,6 @@ if TYPE_CHECKING:
 class UserPokemon(Base):
     __tablename__ = "user_pokemon"
 
-    id = Column(Integer, primary_key=True, index=True)
-    user = Column(Integer, ForeignKey("user.id"), primary_key=True)
-    pokemon = Column(Integer, ForeignKey("pokemon.id"), primary_key=True)
+    id = Column(String, primary_key=True, index=True)
+    user = Column(Integer, ForeignKey("user.id"), index=True)
+    pokemon = Column(Integer, ForeignKey("pokemon.id"), index=True)

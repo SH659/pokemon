@@ -6,13 +6,13 @@ from pydantic import BaseModel
 # Shared properties
 class UserPokemonBase(BaseModel):
     user: int = None
-    pokemon_id: int
+    pokemon: int
 
 
 # Properties to receive via API on creation
 class UserPokemonCreate(BaseModel):
-    user_id: int = None
-    pokemon_id: int
+    user: int = None
+    pokemon: int
 
 
 # Properties to receive via API on update
@@ -21,9 +21,9 @@ class UserPokemonUpdate(UserPokemonBase):
 
 
 class UserPokemonInDBBase(UserPokemonBase):
-    id: int
+    id: str
     user: int
-    pokemon_id: int
+    pokemon: int
 
     class Config:
         orm_mode = True
