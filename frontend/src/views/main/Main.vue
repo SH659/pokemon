@@ -12,7 +12,7 @@
               <v-list-tile-title>Dashboard</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile @click="load_pokemons" to="/main/pokemon/view">
+          <v-list-tile to="/main/pokemon/view">
             <v-list-tile-action>
               <v-icon>person</v-icon>
             </v-list-tile-action>
@@ -129,7 +129,7 @@
 import { Vue, Component } from 'vue-property-decorator';
 
 import { appName } from '@/env';
-import {readDashboardMiniDrawer, readDashboardShowDrawer, readHasAdminAccess, readPokemons} from '@/store/main/getters';
+import {readDashboardMiniDrawer, readDashboardShowDrawer, readHasAdminAccess} from '@/store/main/getters';
 import { commitSetDashboardShowDrawer, commitSetDashboardMiniDrawer } from '@/store/main/mutations';
 import {dispatchGetPokemons, dispatchUserLogOut} from '@/store/main/actions';
 
@@ -185,11 +185,6 @@ export default class Main extends Vue {
 
   public async logout() {
     await dispatchUserLogOut(this.$store);
-  }
-
-  public async load_pokemons() {
-    await dispatchGetPokemons(this.$store, {skip: 0, limit: 100})
-    console.log(readPokemons(this.$store))
   }
 }
 </script>

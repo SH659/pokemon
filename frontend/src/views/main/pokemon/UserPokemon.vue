@@ -4,56 +4,38 @@
       <v-card-title primary-title>
         <div class="headline primary--text">Pokedex</div>
       </v-card-title>
-      <div>blah-blah..!</div>
-
-<!--      <ul>-->
-<!--        <li v-for="pokemon in stringArray()">-->
-<!--          {{pokemon}}-->
-<!--          {{ pokemon.name }}-->
-<!--        </li>-->
-<!--      </ul>-->
-
-<!--      <ol>-->
-<!--        <li v-for="pokemon in stringArray">-->
-<!--          {{pokemon}}-->
-<!--          {{ pokemon.name }}-->
-<!--        </li>-->
-<!--      </ol>-->
 
       <v-data-table :items="pokemons">
         <template slot="items" slot-scope="props">
-          <td>{{ props.item.name }}</td>
-          <td>{{ props.item.picture_url }}</td>
+          <td><img v-bind:src="props.item.picture_url" @error="$event.target.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdB3JUjeFV1bzYfvTsHoR5UFldN0TX1P-_1S_fpMsjjdAaI_mX_3HYcUeIne8-9tp1vwc&usqp=CAU'"/></td>
+          <td><a v-bind:href="props.item.picture_url">{{ props.item.name }}</a></td>
+          <td></td>
         </template>
       </v-data-table>
 
-<!--      <div class="col-lg-2" v-for="pokemon in getPokemons(0, 100)">-->
-<!--        <div>-->
-<!--          pokemon: <b>{{pokemon.name}}</b>-->
-<!--          <br/>-->
-<!--          {{pokemon.picture_url}}-->
-<!--        </div>-->
-<!--        <img :src="getPokemonById(pokemon['picture_url'])" v-bind:alt="getPokemonById(pokemon['name'])">-->
-<!--      </div>-->
     </v-card>
   </v-container>
 </template>
 
 
 <script lang="ts">
-import {api} from "@/api";
-import { Component, Vue } from 'vue-property-decorator';
-import {IPokemon} from "@/interfaces";
+import {Component, Vue} from 'vue-property-decorator';
 import {readPokemons} from "@/store/main/getters";
+import {dispatchGetPokemons} from "@/store/main/actions";
 
 @Component
 export default class UserPokemon extends Vue {
-    public pokemons() {
-      return readPokemons(this.$store)
-    }
-    // public async getPokemonById(id) {
-    //   return await api.getPokemonById(id);
-    // }
+  public async mounted() {
+    console.log('dispatchGetPokemons');
+    return await dispatchGetPokemons(this.$store, {skip: 0, limit: 100});
+  }
+
+  get pokemons() {
+    let res = readPokemons(this.$store);
+    console.log('pokemons()');
+    console.log(res);
+    return res;
+  }
 }
 
 </script>

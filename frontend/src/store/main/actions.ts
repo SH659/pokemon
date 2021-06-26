@@ -174,9 +174,7 @@ export const actions = {
     },
     async actionGetPokemons(context: MainContext, payload: {skip: number, limit: number}){
         const response = await api.getPokemons(payload.skip, payload.limit);
-        console.log('###############################################################')
-        console.log(response)
-        commitSetPokemons(context, Array.from(JSON.parse(JSON.stringify(response.data))))
+        commitSetPokemons(context, Array.from(response.data));
     }
 };
 
