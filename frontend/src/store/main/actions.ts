@@ -173,8 +173,9 @@ export const actions = {
             commitAddNotification(context, { color: 'error', content: 'Error resetting password' });
         }
     },
-    async actionGetPokemons(context: MainContext, payload: {skip: number, limit: number}){
-        const response = await api.getPokemons(payload.skip, payload.limit);
+    async actionGetPokemons(context: MainContext){
+        const pokemonCount = (await api.getPokemonsCount()).data
+        const response = await api.getPokemons(0, pokemonCount);
         commitSetPokemons(context, Array.from(response.data));
     },
     async actionGetUserPokemons(context: MainContext, userId: number){

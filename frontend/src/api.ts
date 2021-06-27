@@ -60,8 +60,10 @@ export const api = {
   async createUserPokemon(token: string, payload: {user: number, pokemon: number}) {
     return axios.post<IUserPokemon>(`${apiUrl}/api/v1/user_pokemons/`, payload, authHeaders(token));
   },
-  async deleteUserPokemon(token: string, id: string)
-  {
+  async deleteUserPokemon(token: string, id: string) {
     return axios.delete(`${apiUrl}/api/v1/user_pokemons/${id}`, authHeaders(token))
+  },
+  async getPokemonsCount() {
+    return axios.get<number>(`${apiUrl}/api/v1/pokemons/total_count`)
   }
 };

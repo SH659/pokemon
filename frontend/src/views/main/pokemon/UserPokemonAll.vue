@@ -30,7 +30,7 @@ import {api} from "@/api";
 @Component
 export default class UserPokemon extends Vue {
   public async mounted() {
-    return await dispatchGetPokemons(this.$store, {skip: 0, limit: 100});
+    return await dispatchGetPokemons(this.$store);
   }
 
   get pokemons() {
