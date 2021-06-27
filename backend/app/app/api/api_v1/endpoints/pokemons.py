@@ -23,11 +23,11 @@ def read_pokemons(
 
 
 @router.get("/total_count")
-def read_pokemons(
+def get_total_count(
     db: Session = Depends(deps.get_db),
 ) -> int:
     """
-    Get Pokemons Count
+    Retrieve Pokemons Count
     """
     pokemons = crud.pokemon.get_total_count(db)
     return pokemons
@@ -39,7 +39,7 @@ def read_pokemon_by_id(
     db: Session = Depends(deps.get_db)
 ) -> Any:
     """
-    Retrieve pokemons.
+    Retrieve pokemon by id.
     """
     pokemon = crud.pokemon.get(db, id=pokemon_id)
     return pokemon

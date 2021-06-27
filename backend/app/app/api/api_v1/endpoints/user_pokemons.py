@@ -17,7 +17,7 @@ def read_user_pokemons(
     db: Session = Depends(deps.get_db),
 ) -> Any:
     """
-    Retrieve pokemons.
+    Retrieve pokemons of specific user.
     """
     pokemons = crud.user_pokemon.get_multi_by_owner(db, owner_id=user_id)
     return pokemons
@@ -29,7 +29,7 @@ def read_user_pokemon(
     db: Session = Depends(deps.get_db),
 ) -> Any:
     """
-    Retrieve pokemons.
+    Retrieve pokemon of specific user.
     """
     pokemons = crud.user_pokemon.get(db, user_pokemon_id)
     return pokemons
@@ -43,7 +43,7 @@ def create_user_pokemon(
     current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Create new item.
+    Select pokemon.
     """
 
     if not crud.pokemon.get(db, user_pokemon_in.pokemon):
@@ -68,7 +68,7 @@ def delete_user_pokemon(
     current_user: models.User = Depends(deps.get_current_active_user),
 ) -> Any:
     """
-    Delete an item.
+    Unselect pokemon.
     """
     item = crud.user_pokemon.get(db=db, id=id)
     if not item:
