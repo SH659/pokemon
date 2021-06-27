@@ -9,7 +9,9 @@ class PokemonBase(BaseModel):
 
 # Properties to receive via API on creation
 class PokemonCreate(PokemonBase):
-    pass
+    id: int
+    name: str
+    picture_url: str
 
 
 # Properties to receive via API on update
@@ -28,7 +30,9 @@ class PokemonInDBBase(PokemonBase):
 
 # Additional properties to return via API
 class Pokemon(PokemonInDBBase):
-    pass
+    id: int
+    name: str
+    picture_url: str
 
 
 # Additional properties stored in DB
