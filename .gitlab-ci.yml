@@ -7,7 +7,7 @@ before_script:
 stages:
   - test
   - build
-  - deploy
+#  - deploy
 
 tests:
   stage: test
@@ -37,38 +37,38 @@ build-prod:
     - build
     - test
 
-deploy-stag:
-  stage: deploy
-  script: 
-    - >
-      DOMAIN=stag.pokemon.com
-      TRAEFIK_TAG=stag.pokemon.com
-      STACK_NAME=stag-pokemon-com
-      TAG=stag
-      sh ./scripts/deploy.sh
-  environment:
-    name: staging
-    url: https://stag.pokemon.com
-  only:
-    - master
-  tags:
-    - swarm
-    - stag
-
-deploy-prod:
-  stage: deploy
-  script:
-    - >
-      DOMAIN=pokemon.com
-      TRAEFIK_TAG=pokemon.com
-      STACK_NAME=pokemon-com
-      TAG=prod
-      sh ./scripts/deploy.sh
-  environment:
-    name: production
-    url: https://pokemon.com
-  only:
-    - production
-  tags:
-    - swarm
-    - prod
+#deploy-stag:
+#  stage: deploy
+#  script:
+#    - >
+#      DOMAIN=stag.pokemon.com
+#      TRAEFIK_TAG=stag.pokemon.com
+#      STACK_NAME=stag-pokemon-com
+#      TAG=stag
+#      sh ./scripts/deploy.sh
+#  environment:
+#    name: staging
+#    url: https://stag.pokemon.com
+#  only:
+#    - master
+#  tags:
+#    - swarm
+#    - stag
+#
+#deploy-prod:
+#  stage: deploy
+#  script:
+#    - >
+#      DOMAIN=pokemon.com
+#      TRAEFIK_TAG=pokemon.com
+#      STACK_NAME=pokemon-com
+#      TAG=prod
+#      sh ./scripts/deploy.sh
+#  environment:
+#    name: production
+#    url: https://pokemon.com
+#  only:
+#    - production
+#  tags:
+#    - swarm
+#    - prod
